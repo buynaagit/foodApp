@@ -13,6 +13,7 @@ import {
 import {hp, wp} from '../constants/theme';
 import {Icons} from '../constants';
 import {brColor} from '../constants/consts';
+import FastImage from 'react-native-fast-image';
 
 // create a component
 const AppIntroScreen = ({navigation}) => {
@@ -40,7 +41,7 @@ const AppIntroScreen = ({navigation}) => {
             alignItems: 'center',
           }}>
           <View style={{alignItems: 'center'}}>
-            <Image
+            <FastImage
               source={Icons.ChefIcon}
               style={{
                 width: wp(10),
@@ -58,6 +59,7 @@ const AppIntroScreen = ({navigation}) => {
             local ingredients.
           </Text>
           <TouchableOpacity
+            onPress={() => navigation.navigate('Register')}
             style={{
               width: wp(60),
               height: 40,
@@ -75,7 +77,7 @@ const AppIntroScreen = ({navigation}) => {
             }}>
             <Text style={{textAlign: 'center'}}>Create Account</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text>
               Already have an account?{' '}
               <Text style={{fontWeight: 'bold'}}>Log in </Text>
