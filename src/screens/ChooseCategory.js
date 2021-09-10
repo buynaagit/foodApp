@@ -7,6 +7,8 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
 } from 'react-native';
 
 import {hp, wp} from '../constants/theme';
@@ -15,15 +17,44 @@ import Button from '../components/button';
 import FlashMessage from 'react-native-flash-message';
 import {showMessage, hideMessage} from 'react-native-flash-message';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {category} from '../staticData/myData';
 
+const generateRandomNumber = () => {
+  let myArr = [];
+  for (let i = 0; i < category.length * 4; i++) {
+    myArr.push(Math.floor(Math.random() * (30 - 16) + 16));
+  }
+  console.log(`myArr`, myArr);
+  return myArr;
+};
 // create a component
 const CategoryScreen = ({navigation}) => {
+  const [randomNums, setrandomNums] = useState(generateRandomNumber());
+  const [isloading, setLoading] = useState(true);
+
   const [count, setCount] = useState(0);
-  const [pressed, setPressed] = useState(false);
   const {colors} = useTheme();
 
-  const handleTouch = () => {
-    setCount(count + 1);
+  const handleTouch = async idx => {
+    console.log(`category`, category);
+    if (count < 5) {
+      setCount(count + 1);
+      if (idx <= 4) {
+        category[0].datta[idx - 1].selected = true;
+      } else if (idx >= 5 && idx <= 8) {
+        category[1].datta[idx - 5].selected = true;
+      } else if (idx >= 9 && idx <= 12) {
+        category[2].datta[idx - 9].selected = true;
+      } else if (idx >= 13 && idx <= 16) {
+        category[3].datta[idx - 13].selected = true;
+      }
+    } else {
+      showMessage({
+        message: 'Complete',
+        description: 'You have alreday choosen 5 cuisine',
+        type: 'success',
+      });
+    }
   };
 
   const ref = useRef();
@@ -32,9 +63,8 @@ const CategoryScreen = ({navigation}) => {
     if (count >= 5) {
       navigation.navigate('Food');
     } else {
-      showMessage({
-        message: 'Chosen cuisine not enough',
-        description: 'At least 5 cuisin need to be chosen',
+      ref.current.showMessage({
+        message: 'Choose 5 cuisine',
         type: 'warning',
       });
     }
@@ -46,7 +76,7 @@ const CategoryScreen = ({navigation}) => {
       <View
         style={{
           marginHorizontal: wp(10),
-          marginBottom: hp(3),
+          marginTop: hp(10),
         }}>
         <Text
           style={{color: colors.brandText, fontSize: 20, fontWeight: '500'}}>
@@ -56,168 +86,56 @@ const CategoryScreen = ({navigation}) => {
           {count} of 5
         </Text>
       </View>
-      <ScrollView horizontal={true} style={{marginTop: hp(5)}}>
-        <View>
-          <TouchableOpacity
-            onPress={() => {
-              handleTouch();
-            }}
-            style={{
-              backgroundColor: '#483C32',
-              width: wp(17),
-              height: wp(17),
-              borderRadius: 50,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginBottom: hp(-1),
-            }}>
-            <Text style={{color: 'white'}}>Swedish</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              backgroundColor: '#C2B280',
-              width: wp(19.5),
-              height: wp(19.5),
-              borderRadius: 50,
-              marginLeft: wp(8),
-              marginVertical: hp(2),
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text style={{color: 'white'}}>Chinese</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              backgroundColor: '#988558',
-              width: wp(22),
-              height: wp(22),
-              borderRadius: 100,
-              marginRight: wp(1),
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text style={{color: 'white'}}>Brazil</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 3,
-              backgroundColor: 'white',
-              width: wp(25),
-              height: wp(25),
-              borderRadius: 50,
-              shadowColor: 'rgb(0, 0, 0)',
-              shadowOffset: {
-                width: 0,
-                height: 3,
-              },
-              shadowOpacity: 0.29,
-              shadowRadius: 4.65,
-              elevation: 2,
-            }}>
-            <Text>American</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#483C32',
-              width: wp(35),
-              height: wp(35),
-              borderRadius: 80,
-              marginLeft: wp(0),
-              marginVertical: hp(2),
-            }}>
-            <Text style={{color: 'white'}}>Japanese</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#C2B280',
-              width: wp(18),
-              height: wp(18),
-              marginLeft: wp(-10),
-              borderRadius: 100,
-              marginHorizontal: wp(3),
-            }}>
-            <Text style={{color: 'white'}}>Indian</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#C2B280',
-              width: wp(15),
-              height: wp(15),
-              borderRadius: 50,
-              marginTop: hp(6),
-              marginLeft: wp(-7),
-            }}>
-            <Text style={{color: 'white'}}>Czech</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#988558',
-              width: wp(25),
-              height: wp(25),
-              borderRadius: 50,
-              marginLeft: wp(4),
-              marginVertical: hp(2),
-            }}>
-            <Text style={{color: 'white'}}>Italian</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#C2B280',
-              width: wp(18),
-              height: wp(18),
-              borderRadius: 100,
-              marginLeft: wp(-5),
-              marginHorizontal: wp(3),
-            }}>
-            <Text style={{color: 'white'}}>Thai</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#483C32',
-              width: wp(30),
-              height: wp(30),
-              borderRadius: 80,
-              marginLeft: wp(-12),
-            }}>
-            <Text style={{color: 'white'}}>Mexican</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#483C32',
-              width: wp(21),
-              height: wp(21),
-              borderRadius: 100,
-              marginHorizontal: wp(3),
-              marginTop: hp(16),
-              marginLeft: wp(-14),
-            }}>
-            <Text style={{color: 'white'}}>Germany</Text>
-          </TouchableOpacity>
-        </View>
+      <ScrollView style={{marginTop: hp(9), height: hp(100)}}>
+        {category.map((item, index) => (
+          <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+            {item.datta.map((e, index) => (
+              <TouchableOpacity
+                disabled={e.selected ? true : false}
+                onPress={() => {
+                  handleTouch(e.index);
+                }}
+                style={
+                  e.selected
+                    ? {
+                        backgroundColor: 'white',
+                        height: wp(randomNums[e.index - 1]),
+                        width: wp(randomNums[e.index - 1]),
+                        borderRadius: 100,
+                        marginHorizontal: wp(2),
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginVertical: hp(1),
+                        shadowColor: 'rgb(0, 0, 0)',
+                        shadowOffset: {
+                          width: 0,
+                          height: 3,
+                        },
+                        shadowOpacity: 0.29,
+                        shadowRadius: 4.65,
+                        elevation: 2,
+                      }
+                    : {
+                        backgroundColor: '#C2B280',
+                        height: wp(randomNums[e.index - 1]),
+                        width: wp(randomNums[e.index - 1]),
+                        borderRadius: 100,
+                        marginHorizontal: wp(2),
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginVertical: hp(1),
+                      }
+                }>
+                <Text style={e.selected ? {color: brColor} : {color: 'white'}}>
+                  {e.name}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        ))}
       </ScrollView>
       <Button
+        style={{marginBottom: hp(2)}}
         onPress={() => ContinueBtn()}
         text={'Continue'}
         textColor={{color: 'white'}}
@@ -230,8 +148,16 @@ const CategoryScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: hp(10),
-    marginBottom: hp(8),
+  },
+  card: {
+    backgroundColor: '#C2B280',
+    paddingHorizontal: wp(9),
+    height: wp(10),
+    borderRadius: 18,
+    marginHorizontal: wp(2),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: hp(1),
   },
 });
 

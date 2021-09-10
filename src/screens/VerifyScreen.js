@@ -18,11 +18,11 @@ const VerifyScreen = ({navigation}) => {
   const {colors} = useTheme();
   const [verify, setVerify] = useState('');
 
-  const veriFunction = useCallback(() => {
+  const veriFunction = () => {
     if (verify.length === 4) {
       navigation.navigate('Category');
     }
-  }, [navigation, verify]);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
