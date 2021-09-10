@@ -1,5 +1,6 @@
 //import liraries
 import React, {useState} from 'react';
+
 import {
   View,
   Text,
@@ -9,37 +10,25 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-
-import {hp, wp} from '../constants/theme';
+import {useTheme} from '@react-navigation/native';
 import {Icons} from '../constants';
+import {hp, wp} from '../constants/theme';
 import {brColor} from '../constants/consts';
 import FastImage from 'react-native-fast-image';
 
 // create a component
 const AppIntroScreen = ({navigation}) => {
+  const paperTheme = useTheme();
   return (
     <View style={styles.container}>
-      <StatusBar translucent backgroundColor="transparent" />
+      <StatusBar
+        barStyle={paperTheme.dark ? 'light-content' : 'dark-content'}
+      />
       <ImageBackground
         resizeMode="cover"
         source={require('../assets/images/RegisterBackground.jpg')}
-        style={{
-          width: wp(100),
-          height: hp(100),
-          backgroundColor: 'transparent',
-        }}>
-        <View
-          style={{
-            marginVertical: hp(20),
-            alignSelf: 'center',
-            width: wp(80),
-            height: hp(60),
-            backgroundColor: 'white',
-            opacity: 0.82,
-            borderRadius: 10,
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-          }}>
+        style={styles.imgBg}>
+        <View style={styles.layerContainer}>
           <View style={{alignItems: 'center'}}>
             <FastImage
               source={Icons.ChefIcon}
@@ -60,21 +49,7 @@ const AppIntroScreen = ({navigation}) => {
           </Text>
           <TouchableOpacity
             onPress={() => navigation.navigate('Register')}
-            style={{
-              width: wp(60),
-              height: 40,
-              backgroundColor: 'white',
-              justifyContent: 'center',
-              borderRadius: 15,
-              shadowColor: 'rgb(0, 0, 0)',
-              shadowOffset: {
-                width: 0,
-                height: 3,
-              },
-              shadowOpacity: 0.29,
-              shadowRadius: 4.65,
-              elevation: 2,
-            }}>
+            style={styles.crtBtn}>
             <Text style={{textAlign: 'center'}}>Create Account</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
@@ -93,6 +68,37 @@ const AppIntroScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  layerContainer: {
+    marginVertical: hp(20),
+    alignSelf: 'center',
+    width: wp(80),
+    height: hp(60),
+    backgroundColor: 'white',
+    opacity: 0.82,
+    borderRadius: 10,
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  imgBg: {
+    width: wp(100),
+    height: hp(100),
+    backgroundColor: 'transparent',
+  },
+  crtBtn: {
+    width: wp(60),
+    height: 40,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    borderRadius: 15,
+    shadowColor: 'rgb(0, 0, 0)',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 2,
   },
 });
 

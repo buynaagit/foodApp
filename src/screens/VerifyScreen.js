@@ -1,5 +1,6 @@
 //import liraries
 import React, {useState, useEffect, useCallback} from 'react';
+
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   View,
@@ -7,14 +8,16 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 
 import {hp, wp} from '../constants/theme';
 import {useTheme} from '@react-navigation/native';
 import {brColor} from '../constants/consts';
-
+12313;
 // create a component
 const VerifyScreen = ({navigation}) => {
+  const paperTheme = useTheme();
   const {colors} = useTheme();
   const [verify, setVerify] = useState('');
 
@@ -26,17 +29,16 @@ const VerifyScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar
+        barStyle={paperTheme.dark ? 'light-content' : 'dark-content'}
+      />
       <Text style={{color: colors.brandText, fontSize: 28}}>
         Enter the Code {`\n`}to Verify your Phone{' '}
       </Text>
       <Text style={{color: colors.brandText, fontSize: 13, marginTop: hp(5)}}>
         We have s ent you an SMS with a code to{`\n`}the number +976 94982323
       </Text>
-      <View
-        style={{
-          flexDirection: 'row',
-          marginTop: hp(7),
-        }}>
+      <View style={styles.cardContainer}>
         <View
           style={
             verify.length >= 1
@@ -67,18 +69,11 @@ const VerifyScreen = ({navigation}) => {
         />
       </View>
       <TouchableOpacity>
-        <Text
-          style={{
-            color: colors.text,
-            marginTop: hp(5),
-            textDecorationLine: 'underline',
-          }}>
-          Send a new code
-        </Text>
+        <Text style={[styles.send, {color: colors.text}]}>Send a new code</Text>
       </TouchableOpacity>
 
       <TextInput
-        style={{position: 'absolute', bottom: 0, color: 'white'}}
+        style={styles.textInput}
         autoFocus={true}
         keyboardType="number-pad"
         onChangeText={setVerify}
@@ -102,6 +97,15 @@ const styles = StyleSheet.create({
     height: wp(5),
     borderRadius: 50,
     marginRight: wp(6),
+  },
+  textInput: {position: 'absolute', bottom: 0, color: 'white'},
+  send: {
+    marginTop: hp(5),
+    textDecorationLine: 'underline',
+  },
+  cardContainer: {
+    flexDirection: 'row',
+    marginTop: hp(7),
   },
 });
 

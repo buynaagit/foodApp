@@ -1,6 +1,8 @@
 //import liraries
 import React, {useState, useRef} from 'react';
+
 import {useTheme} from '@react-navigation/native';
+
 import {
   View,
   Text,
@@ -8,21 +10,20 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
+  StatusBar,
 } from 'react-native';
 
 import {hp, wp} from '../constants/theme';
-import {brColor} from '../constants/consts';
 import Button from '../components/button';
-import FlashMessage from 'react-native-flash-message';
-import {showMessage, hideMessage} from 'react-native-flash-message';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {food} from '../staticData/myData';
-import {Item} from 'react-native-paper/lib/typescript/components/List/List';
+import {brColor} from '../constants/consts';
+import FlashMessage from 'react-native-flash-message';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 // create a component
 const ChooseFoodScreen = ({navigation}) => {
+  const paperTheme = useTheme();
   const [count, setCount] = useState(0);
-  const [pressed, setPressed] = useState(false);
   const {colors} = useTheme();
 
   const ref = useRef();
@@ -54,7 +55,7 @@ const ChooseFoodScreen = ({navigation}) => {
   };
 
   const ContinueBtn = () => {
-    if (count >= 5) {
+    if (count >= 1) {
       navigation.navigate('Home');
     } else {
       ref.current.showMessage({
@@ -66,6 +67,9 @@ const ChooseFoodScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar
+        barStyle={paperTheme.dark ? 'light-content' : 'dark-content'}
+      />
       <FlashMessage ref={ref} />
       <View
         style={{

@@ -5,17 +5,20 @@ import {
   DefaultTheme,
   DarkTheme,
 } from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 import {AuthContext} from './context';
-import RootScreen from './screens/RootScreen';
-import AppIntroScreen from './screens/AppIntroScreen';
-import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
 import {brColor} from './constants/consts';
-import HomeScreen from './screens/HomeScreen';
+
+import LoginScreen from './screens/LoginScreen';
+import RootScreen from './screens/RootScreen';
 import VerifyScreen from './screens/VerifyScreen';
-import CategoryScreen from './screens/ChooseCategory';
 import ChooseFoodScreen from './screens/ChooseFood';
+import CategoryScreen from './screens/ChooseCategory';
+import AppIntroScreen from './screens/AppIntroScreen';
+import RegisterScreen from './screens/RegisterScreen';
+
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import MyBottomTabs from './navigators/BottomTabNavigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -65,10 +68,10 @@ const App = () => {
           <Stack.Screen name="AppIntro" component={AppIntroScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Verify" component={VerifyScreen} />
           <Stack.Screen name="Category" component={CategoryScreen} />
           <Stack.Screen name="Food" component={ChooseFoodScreen} />
+          <Stack.Screen name="Home" component={MyBottomTabs} />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthContext.Provider>

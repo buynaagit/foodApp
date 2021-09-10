@@ -3,10 +3,10 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 // create a component
-const HomeScreen = () => {
+const ProfileScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>HomeScreen</Text>
+      <Text>ProfileScreen</Text>
     </View>
   );
 };
@@ -15,9 +15,11 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'white',
   },
 });
 
 //make this component available to the app
-export default HomeScreen;
+export default ProfileScreen;

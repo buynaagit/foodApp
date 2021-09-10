@@ -1,23 +1,23 @@
 //import liraries
 import React, {useState, useRef} from 'react';
-import {useTheme} from '@react-navigation/native';
+
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  FlatList,
-  ActivityIndicator,
+  StatusBar,
 } from 'react-native';
 
 import {hp, wp} from '../constants/theme';
-import {brColor} from '../constants/consts';
 import Button from '../components/button';
-import FlashMessage from 'react-native-flash-message';
-import {showMessage, hideMessage} from 'react-native-flash-message';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {brColor} from '../constants/consts';
 import {category} from '../staticData/myData';
+import {useTheme} from '@react-navigation/native';
+import FlashMessage from 'react-native-flash-message';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {showMessage} from 'react-native-flash-message';
 
 const generateRandomNumber = () => {
   let myArr = [];
@@ -30,7 +30,6 @@ const generateRandomNumber = () => {
 // create a component
 const CategoryScreen = ({navigation}) => {
   const [randomNums, setrandomNums] = useState(generateRandomNumber());
-  const [isloading, setLoading] = useState(true);
 
   const [count, setCount] = useState(0);
   const {colors} = useTheme();
@@ -60,7 +59,7 @@ const CategoryScreen = ({navigation}) => {
   const ref = useRef();
 
   const ContinueBtn = () => {
-    if (count >= 5) {
+    if (count >= 1) {
       navigation.navigate('Food');
     } else {
       ref.current.showMessage({
@@ -69,9 +68,13 @@ const CategoryScreen = ({navigation}) => {
       });
     }
   };
+  const paperTheme = useTheme();
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar
+        barStyle={paperTheme.dark ? 'light-content' : 'dark-content'}
+      />
       <FlashMessage ref={ref} />
       <View
         style={{
@@ -97,34 +100,20 @@ const CategoryScreen = ({navigation}) => {
                 }}
                 style={
                   e.selected
-                    ? {
-                        backgroundColor: 'white',
-                        height: wp(randomNums[e.index - 1]),
-                        width: wp(randomNums[e.index - 1]),
-                        borderRadius: 100,
-                        marginHorizontal: wp(2),
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        marginVertical: hp(1),
-                        shadowColor: 'rgb(0, 0, 0)',
-                        shadowOffset: {
-                          width: 0,
-                          height: 3,
+                    ? [
+                        styles.selectedCard,
+                        {
+                          height: wp(randomNums[e.index - 1]),
+                          width: wp(randomNums[e.index - 1]),
                         },
-                        shadowOpacity: 0.29,
-                        shadowRadius: 4.65,
-                        elevation: 2,
-                      }
-                    : {
-                        backgroundColor: '#C2B280',
-                        height: wp(randomNums[e.index - 1]),
-                        width: wp(randomNums[e.index - 1]),
-                        borderRadius: 100,
-                        marginHorizontal: wp(2),
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        marginVertical: hp(1),
-                      }
+                      ]
+                    : [
+                        styles.card,
+                        {
+                          height: wp(randomNums[e.index - 1]),
+                          width: wp(randomNums[e.index - 1]),
+                        },
+                      ]
                 }>
                 <Text style={e.selected ? {color: brColor} : {color: 'white'}}>
                   {e.name}
@@ -151,13 +140,27 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#C2B280',
-    paddingHorizontal: wp(9),
-    height: wp(10),
-    borderRadius: 18,
+    borderRadius: 100,
     marginHorizontal: wp(2),
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: hp(1),
+  },
+  selectedCard: {
+    backgroundColor: 'white',
+    borderRadius: 100,
+    marginHorizontal: wp(2),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: hp(1),
+    shadowColor: 'rgb(0, 0, 0)',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 2,
   },
 });
 

@@ -5,14 +5,12 @@ import {AuthContext} from '../context';
 import {hp, wp} from '../constants/theme';
 import FastImage from 'react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, StatusBar} from 'react-native';
 import {Switch, TextInput, TouchableRipple} from 'react-native-paper';
 
 import {images} from '../constants';
 import Button from '../components/button';
 import {brColor} from '../constants/consts';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // create a component
 const RegisterScreen = ({navigation}) => {
@@ -26,6 +24,9 @@ const RegisterScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar
+        barStyle={paperTheme.dark ? 'light-content' : 'dark-content'}
+      />
       <FastImage
         style={{width: wp(100), height: hp(30)}}
         source={images.loginHeader}
@@ -68,7 +69,7 @@ const RegisterScreen = ({navigation}) => {
             <TouchableRipple onPress={() => toggleTheme()}>
               <View style={styles.preference}>
                 <View pointerEvents="none">
-                  <Switch value={paperTheme.dark} />
+                  <Switch value={console.log(`1`)} />
                 </View>
                 <Text
                   style={{

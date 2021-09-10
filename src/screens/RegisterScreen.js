@@ -5,8 +5,14 @@ import {AuthContext} from '../context';
 import {hp, wp} from '../constants/theme';
 import FastImage from 'react-native-fast-image';
 import {useTheme} from '@react-navigation/native';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {Switch, TextInput, TouchableRipple} from 'react-native-paper';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  StatusBar,
+} from 'react-native';
+import {TextInput, TouchableRipple} from 'react-native-paper';
 
 import {images} from '../constants';
 import Button from '../components/button';
@@ -18,7 +24,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const RegisterScreen = ({navigation}) => {
   const paperTheme = useTheme();
   const {colors} = useTheme();
-  const {toggleTheme} = useContext(AuthContext);
 
   const RegisterBtn = () => {
     navigation.navigate('Login');
@@ -26,6 +31,9 @@ const RegisterScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar
+        barStyle={paperTheme.dark ? 'light-content' : 'dark-content'}
+      />
       <FastImage
         style={{width: wp(100), height: hp(30)}}
         source={images.registerHeader}
@@ -72,17 +80,6 @@ const RegisterScreen = ({navigation}) => {
               Sign up with Facebook
             </Text>
           </TouchableOpacity>
-          <TouchableRipple
-            onPress={() => {
-              toggleTheme();
-            }}>
-            <View style={styles.preference}>
-              <Text style={{color: colors.text}}>Dark theme</Text>
-              <View pointerEvents="none">
-                <Switch value={paperTheme.dark} />
-              </View>
-            </View>
-          </TouchableRipple>
         </View>
       </View>
     </View>
