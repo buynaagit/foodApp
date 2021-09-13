@@ -48,6 +48,7 @@ const MyTabs = () => {
           tabBarActiveTintColor: brColor,
           tabBarLabelStyle: {fontSize: 12},
           tabBarStyle: {backgroundColor: 'white'},
+          swipeEnabled: false,
         }}>
         <Tab.Screen name="Featured" component={FeaturedStackScreen} />
         <Tab.Screen name="Popular" component={PopularStackScreen} />

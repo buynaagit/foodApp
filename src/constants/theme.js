@@ -24,63 +24,14 @@ export const hp = heightPercent => {
   return PixelRatio.roundToNearestPixel((screenHeight * elemHeight) / 100);
 };
 
-export const brandFontHeavy = Platform.select({
-  ios: 'SFProDisplay-Heavy',
-  android: 'SF-Pro-Display-Heavy',
-});
-export const brandFontBlack = Platform.select({
-  ios: 'SFProDisplay-Black',
-  android: 'SF-Pro-Display-Black',
-});
-export const brandFontRegular = Platform.select({
-  ios: 'SFProDisplay-Regular',
-  android: 'SF-Pro-Display-Regular',
-});
-export const brandFontThin = Platform.select({
-  ios: 'SFProDisplay-Thin',
-  android: 'SF-Pro-Display-Thin',
-});
-export const brandFontUltralight = Platform.select({
-  ios: 'SFProDisplay-Ultralight',
-  android: 'SF-Pro-Display-Ultralight',
-});
-export const brandFontlight = Platform.select({
-  ios: 'SFProDisplay-light',
-  android: 'SF-Pro-Display-light',
-});
-export const brandFontMedium = Platform.select({
-  ios: 'SFProDisplay-Medium',
-  android: 'SF-Pro-Display-Medium',
-});
-export const brandFontSemibold = Platform.select({
-  ios: 'SFProDisplay-Black',
-  android: 'SF-Pro-Display-Black',
-});
-export const brandFontBold = Platform.select({
-  ios: 'SFProDisplay-Bold',
-  android: 'SF-Pro-Display-Bold',
-});
-
 export const FONTS = {
   titleText: {
-    fontFamily: brandFontHeavy,
     fontSize: ft(15),
+    fontWeight: '600',
   },
-  PaymentText: {
-    fontFamily: brandFontBold,
-    fontSize: ft(20),
-  },
-  HeaderText: {
-    fontFamily: brandFontHeavy,
-    fontSize: ft(17),
-  },
-  PaymenPrice: {
-    fontFamily: brandFontRegular,
-    fontSize: ft(15),
-  },
-  comingSoon: {
-    fontFamily: brandFontThin,
-    fontSize: ft(20),
+  subtitle: {
+    fontSize: ft(11),
+    color: '#919191',
   },
 };
 

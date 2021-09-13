@@ -1,10 +1,6 @@
 //import liraries
 import React, {useContext} from 'react';
 
-import {hp, wp} from '../constants/theme';
-
-import {useTheme} from '@react-navigation/native';
-
 import {
   View,
   Text,
@@ -12,13 +8,20 @@ import {
   TouchableOpacity,
   ImageBackground,
   StatusBar,
+  Image,
+  FlatList,
 } from 'react-native';
 
 import {images} from '../constants';
 import {AuthContext} from '../context';
+import {hp, wp} from '../constants/theme';
 import {brColor} from '../constants/consts';
-import {Switch, TouchableRipple} from 'react-native-paper';
+import {FONTS, COLORS} from '../constants';
+import {useTheme} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/native';
+import {Switch, TouchableRipple} from 'react-native-paper';
+import {card, foodList} from '../staticData/myData';
+import Icon from 'react-native-vector-icons/Entypo';
 
 // create a component
 const FeaturedScreen = ({navigation}) => {
@@ -26,11 +29,27 @@ const FeaturedScreen = ({navigation}) => {
   const {colors} = useTheme();
   const {toggleTheme} = useContext(AuthContext);
 
-  const isFocused = useIsFocused();
-
   return (
     <View style={styles.container}>
-      <StatusBar barStyle={'light-content'} />
+      <View>
+        <StatusBar barStyle={'light-content'} />
+        <FlatList
+          numColumns={2}
+          data={card}
+          renderItem={({item, index}) => (
+            <TouchableOpacity>
+              <ImageBackground
+                imageStyle={{borderRadius: wp(3)}}
+                source={item.img}
+                style={styles.imgStyle}>
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.subtitle}>{item.subtitle}</Text>
+                <View style={styles.blackOverlay} />
+              </ImageBackground>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
     </View>
   );
 };
@@ -39,52 +58,36 @@ const FeaturedScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  subContainer: {
-    marginTop: hp(3),
-    marginHorizontal: wp(5),
-  },
-  viewMore: {
-    backgroundColor: 'white',
-    zIndex: 1,
-    width: wp(25),
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 6,
-    borderRadius: wp(4),
-    alignSelf: 'flex-end',
-    marginBottom: hp(2),
-    right: wp(4),
+    marginHorizontal: wp(4),
+    marginTop: hp(2),
   },
   blackOverlay: {
+    width: wp(45),
+    height: hp(15),
     backgroundColor: 'black',
-    width: wp(100),
-    height: hp(39),
+    opacity: 0.2,
+    borderRadius: wp(3),
+    padding: hp(2),
+  },
+  subtitle: {
+    color: 'white',
+    fontSize: 20,
+    zIndex: 1,
     position: 'absolute',
-    top: 0,
-    zIndex: 1,
-    opacity: 0.4,
+    top: hp(4),
+    left: wp(4),
   },
-  headerText: {
+  title: {
     color: 'white',
-    fontSize: 27,
-    fontWeight: '700',
-    left: wp(8),
-    marginBottom: hp(1),
     zIndex: 1,
+    position: 'absolute',
+    top: hp(1),
+    left: wp(4),
   },
-  subHeader: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight: '600',
-    left: wp(8),
-    zIndex: 1,
-  },
-  highlight: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: wp(33),
-    height: hp(6),
+  imgStyle: {
+    width: wp(45),
+    height: hp(15),
+    marginRight: wp(3),
   },
 });
 

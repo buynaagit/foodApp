@@ -63,7 +63,7 @@ const App = () => {
       <NavigationContainer theme={theme}>
         <Stack.Navigator
           screenOptions={{headerShown: false}}
-          initialRouteName="Root">
+          initialRouteName="Home">
           <Stack.Screen name="Root" component={RootScreen} />
           <Stack.Screen name="AppIntro" component={AppIntroScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />

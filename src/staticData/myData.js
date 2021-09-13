@@ -1,3 +1,5 @@
+import {images} from '../constants';
+
 export let food = [
   {
     datta: [
@@ -180,5 +182,71 @@ export let category = [
         index: 12,
       },
     ],
+  },
+];
+
+export let card = [
+  {
+    title: 'Korean',
+    subtitle: 'Tofu Noodle Soup',
+    img: images.tofu,
+  },
+  {
+    title: 'Mongolian',
+    subtitle: 'Traditional beef ribs',
+    img: images.ribs,
+  },
+  {
+    title: 'Chinese',
+    subtitle: 'Dumplings with soy sauce',
+    img: images.dumpling,
+  },
+  {
+    title: 'Japanese',
+    subtitle: 'Delicate sushi rolls',
+    img: images.sushi,
+  },
+  {
+    title: 'Russian',
+    subtitle: 'Russian wheat krovski',
+    img: images.wheat,
+  },
+  {
+    title: 'Russian',
+    subtitle: 'Russian wheat krovski',
+    img: images.wheat,
+  },
+];
+
+export let foodList = [
+  {
+    title: 'Chicken Salad',
+    subtitle: 'Special Food',
+    img: images.chickenSalad,
+    rating: '6.2K',
+  },
+  {
+    title: 'Meat ball Pizza',
+    subtitle: 'Family Food',
+    img: images.pizza,
+    rating: '6.2K',
+  },
+  {
+    title: 'Vegan burger',
+    subtitle: 'Vegan Food',
+    img: images.burger,
+    rating: '3.4K',
+  },
+  {
+    title: 'Mexican taco',
+    subtitle: 'Spicy Food',
+    img: images.taco,
+    rating: '2.1K',
+  },
+  {
+    title: 'Grilled beef',
+    subtitle: 'Fried Food',
+    img: images.grilledbeef,
+    rating: '7.1K',
   },
 ];
