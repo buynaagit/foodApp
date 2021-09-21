@@ -24,7 +24,7 @@ import {card, foodList} from '../staticData/myData';
 import Icon from 'react-native-vector-icons/Entypo';
 
 // create a component
-const FeaturedScreen = ({navigation}) => {
+const PopularScreen = ({navigation}) => {
   const paperTheme = useTheme();
   const {colors} = useTheme();
   const {toggleTheme} = useContext(AuthContext);
@@ -42,7 +42,7 @@ const FeaturedScreen = ({navigation}) => {
               onPress={() => navigation.navigate('PopularDetails')}>
               <ImageBackground
                 imageStyle={{borderRadius: wp(3)}}
-                source={item.img}
+                source={{uri: item.img}}
                 style={styles.imgStyle}>
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.subtitle}>{item.subtitle}</Text>
@@ -97,4 +97,4 @@ const styles = StyleSheet.create({
 });
 
 //make this component available to the app
-export default FeaturedScreen;
+export default PopularScreen;

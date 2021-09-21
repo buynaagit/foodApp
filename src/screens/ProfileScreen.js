@@ -1,12 +1,16 @@
 //import liraries
-import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useContext} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {AuthContext} from '../context';
 
 // create a component
 const ProfileScreen = () => {
+  const {signOut} = useContext(AuthContext);
   return (
     <View style={styles.container}>
-      <Text>ProfileScreen</Text>
+      <TouchableOpacity onPress={() => signOut()}>
+        <Text>Sign out</Text>
+      </TouchableOpacity>
     </View>
   );
 };

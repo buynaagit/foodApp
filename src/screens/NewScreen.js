@@ -52,19 +52,16 @@ const FeaturedScreen = ({navigation}) => {
                 style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View style={{flexDirection: 'row'}}>
                   <Image
-                    source={item.img}
+                    source={{uri: item.img}}
                     style={{width: wp(19), height: wp(19), borderRadius: wp(3)}}
                   />
                   <View style={{marginLeft: wp(3)}}>
                     <Text style={FONTS.titleText}> {item.title} </Text>
                     <Text style={FONTS.subtitle}> {item.subtitle} </Text>
-                    <View style={{flexDirection: 'row'}}>
-                      <Icon name="star" size={20} color="#b7a485" />
-                      <Icon name="star" size={20} color="#b7a485" />
-                      <Icon name="star" size={20} color="#b7a485" />
-                      <Icon name="star" size={20} color="#b7a485" />
-                      <Icon name="star" size={20} color="#919191" />
-                    </View>
+                    <Image
+                      source={item.star}
+                      style={{width: 100, height: 20}}
+                    />
                   </View>
                 </View>
                 <View>

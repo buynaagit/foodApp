@@ -15,6 +15,7 @@ import {hp, wp} from '../constants/theme';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {brColor} from '../constants/consts';
+import PopularDetailsScreen from '../screens/PopularDetailsScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -78,8 +79,10 @@ const PopularStackScreen = ({navigation}) => {
         headerShown: false,
       }}>
       <PopularStack.Screen name="Popular" component={PopularScreen} />
-
-      {/* <Popular.Screen name="PaymentScreen" component={PaymentScreen} /> */}
+      {/* <PopularStack.Screen
+        name="PopularDetails"
+        component={PopularDetailsScreen}
+      /> */}
     </PopularStack.Navigator>
   );
 };

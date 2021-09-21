@@ -5,7 +5,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FeaturedScreen from '../screens/FeaturedScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import CookBookScreen from '../screens/CookBookScren';
+import CookBookScreen from '../screens/CookBookScreen';
 import TopBarNavigator from '../navigators/TopBarNavigator';
 import {brColor} from '../constants/consts';
 

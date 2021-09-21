@@ -30,6 +30,12 @@ const PopularDetailsScreen = ({navigation}) => {
   const {colors} = useTheme();
   const {toggleTheme} = useContext(AuthContext);
 
+  const btnHandler = item => {
+    navigation.navigate('CookRecipeText', {
+      params: item,
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
@@ -57,10 +63,10 @@ const PopularDetailsScreen = ({navigation}) => {
           showsVerticalScrollIndicator={false}
           data={card}
           renderItem={({item, index}) => (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => btnHandler(item)}>
               <ImageBackground
                 imageStyle={{borderRadius: wp(3)}}
-                source={item.img}
+                source={{uri: item.img}}
                 style={styles.imgStyle}>
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.subtitle}>{item.subtitle}</Text>

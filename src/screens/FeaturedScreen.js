@@ -35,6 +35,12 @@ const FeaturedScreen = ({navigation}) => {
     });
   };
 
+  const btnHandlerRecipeText = item => {
+    navigation.navigate('CookRecipeText', {
+      params: item,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle={'light-content'} />
@@ -45,11 +51,10 @@ const FeaturedScreen = ({navigation}) => {
           horizontal={true}
           data={card}
           renderItem={({item, index}) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('PopularDetails')}>
+            <TouchableOpacity onPress={() => btnHandlerRecipeText(item)}>
               <ImageBackground
                 imageStyle={{borderRadius: wp(3)}}
-                source={item.img}
+                source={{uri: item.img}}
                 style={styles.imgStyle}>
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.subtitle}>{item.subtitle}</Text>
@@ -77,8 +82,7 @@ const FeaturedScreen = ({navigation}) => {
                   />
                   <View style={{marginLeft: wp(3)}}>
                     <Text style={[FONTS.titleText, {color: colors.text}]}>
-                      {' '}
-                      {item.title}{' '}
+                      {item.title}
                     </Text>
                     <Text style={FONTS.subtitle}> {item.subtitle} </Text>
                     <Image
