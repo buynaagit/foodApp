@@ -29,15 +29,24 @@ const FeaturedScreen = ({navigation}) => {
   const {colors} = useTheme();
   const {toggleTheme} = useContext(AuthContext);
 
+  const btnHandler = item => {
+    navigation.navigate('CookRecipe', {
+      params: item,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle={'light-content'} />
       <View>
         <FlatList
+          keyExtractor={(item, index) => `${index}`}
+          showsHorizontalScrollIndicator={false}
           horizontal={true}
           data={card}
           renderItem={({item, index}) => (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('PopularDetails')}>
               <ImageBackground
                 imageStyle={{borderRadius: wp(3)}}
                 source={item.img}
@@ -52,26 +61,30 @@ const FeaturedScreen = ({navigation}) => {
       </View>
       <View style={{flex: 1, marginTop: hp(1), marginBottom: hp(1)}}>
         <FlatList
+          keyExtractor={(item, index) => `${index}`}
+          showsVerticalScrollIndicator={false}
           data={foodList}
           renderItem={({item, index}) => (
-            <TouchableOpacity style={{marginTop: hp(1)}}>
+            <TouchableOpacity
+              onPress={() => btnHandler(item)}
+              style={{marginTop: hp(1)}}>
               <View
                 style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View style={{flexDirection: 'row'}}>
                   <Image
-                    source={item.img}
+                    source={{uri: item.img}}
                     style={{width: wp(19), height: wp(19), borderRadius: wp(3)}}
                   />
                   <View style={{marginLeft: wp(3)}}>
-                    <Text style={FONTS.titleText}> {item.title} </Text>
+                    <Text style={[FONTS.titleText, {color: colors.text}]}>
+                      {' '}
+                      {item.title}{' '}
+                    </Text>
                     <Text style={FONTS.subtitle}> {item.subtitle} </Text>
-                    <View style={{flexDirection: 'row'}}>
-                      <Icon name="star" size={20} color="#b7a485" />
-                      <Icon name="star" size={20} color="#b7a485" />
-                      <Icon name="star" size={20} color="#b7a485" />
-                      <Icon name="star" size={20} color="#b7a485" />
-                      <Icon name="star" size={20} color="#919191" />
-                    </View>
+                    <Image
+                      source={item.star}
+                      style={{width: 100, height: 20}}
+                    />
                   </View>
                 </View>
                 <View>

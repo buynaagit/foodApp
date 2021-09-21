@@ -29,32 +29,25 @@ const FeaturedScreen = ({navigation}) => {
   const {colors} = useTheme();
   const {toggleTheme} = useContext(AuthContext);
 
+  const btnHandler = item => {
+    navigation.navigate('CookRecipe', {
+      params: item,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <View>
         <StatusBar barStyle={'light-content'} />
-        <FlatList
-          horizontal={true}
-          data={card}
-          renderItem={({item, index}) => (
-            <TouchableOpacity>
-              <ImageBackground
-                imageStyle={{borderRadius: wp(3)}}
-                source={item.img}
-                style={styles.imgStyle}>
-                <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.subtitle}>{item.subtitle}</Text>
-                <View style={styles.blackOverlay} />
-              </ImageBackground>
-            </TouchableOpacity>
-          )}
-        />
       </View>
       <View style={{flex: 1, marginTop: hp(1)}}>
         <FlatList
+          keyExtractor={(item, index) => `${index}`}
           data={foodList}
           renderItem={({item, index}) => (
-            <TouchableOpacity style={{marginTop: hp(1)}}>
+            <TouchableOpacity
+              style={{marginTop: hp(1)}}
+              onPress={() => btnHandler(item)}>
               <View
                 style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View style={{flexDirection: 'row'}}>

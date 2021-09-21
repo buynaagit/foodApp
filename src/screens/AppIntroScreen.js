@@ -30,14 +30,7 @@ const AppIntroScreen = ({navigation}) => {
         style={styles.imgBg}>
         <View style={styles.layerContainer}>
           <View style={{alignItems: 'center'}}>
-            <FastImage
-              source={Icons.ChefIcon}
-              style={{
-                width: wp(10),
-                height: wp(10),
-                marginBottom: hp(2),
-              }}
-            />
+            <FastImage source={Icons.ChefIcon} style={styles.iconStyle} />
             <Text style={{color: brColor, fontSize: 30, fontWeight: 'bold'}}>
               Good Food
             </Text>
@@ -99,6 +92,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
     elevation: 2,
+  },
+  iconStyle: {
+    width: wp(10),
+    height: wp(10),
+    marginBottom: hp(2),
   },
 });
 

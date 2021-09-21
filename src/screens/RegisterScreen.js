@@ -1,5 +1,5 @@
 //import liraries
-import React, {useContext} from 'react';
+import React, {useContext, useState, useRef} from 'react';
 
 import {AuthContext} from '../context';
 import {hp, wp} from '../constants/theme';
@@ -12,11 +12,13 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
-import {TextInput, TouchableRipple} from 'react-native-paper';
 
 import {images} from '../constants';
 import Button from '../components/button';
+import {TextInput} from 'react-native-paper';
 import {brColor} from '../constants/consts';
+import FlashMessage from 'react-native-flash-message';
+import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -24,9 +26,98 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const RegisterScreen = ({navigation}) => {
   const paperTheme = useTheme();
   const {colors} = useTheme();
+  const {signUp} = useContext(AuthContext);
+  const [loading, setloading] = useState(false);
 
-  const RegisterBtn = () => {
-    navigation.navigate('Login');
+  const ref = useRef();
+
+  const [userData, setUserData] = React.useState({
+    email: '',
+    password: '',
+    confirm_password: '',
+    isValidEmail: false,
+    isValidPassword: false,
+    secureTextEntry: true,
+  });
+
+  const handleEmailChange = val => {
+    if (val.trim().length >= 10 && val.includes('@')) {
+      setUserData({
+        ...userData,
+        email: val,
+        isValidEmail: true,
+      });
+    } else {
+      setUserData({
+        ...userData,
+        email: val,
+        isValidEmail: false,
+      });
+    }
+  };
+
+  const handlePasswordChange = val => {
+    if (val.trim().length >= 6) {
+      setUserData({
+        ...userData,
+        password: val,
+        isValidPassword: true,
+      });
+    } else {
+      setUserData({
+        ...userData,
+        password: val,
+        isValidPassword: false,
+      });
+    }
+  };
+
+  const handleConfirmPasswordChange = val => {
+    setUserData({
+      ...userData,
+      confirm_password: val,
+    });
+  };
+
+  const updateConfirmSecureTextEntry = () => {
+    setUserData({
+      ...userData,
+      confirm_secureTextEntry: !userData.confirm_secureTextEntry,
+    });
+  };
+
+  const signUpBtn = async () => {
+    setloading(true);
+    let result = null;
+    try {
+      if (userData.email && userData.password && userData.confirm_password) {
+        let usersJSON = await AsyncStorage.getItem('@userData');
+        if (usersJSON != null) {
+          let userObj = JSON.parse(usersJSON);
+          console.log(`userObj`, userObj);
+
+          result = userObj.find(({email}) => email === userData.email);
+          console.log(`result`, result);
+          if (result != undefined) {
+            ref.current.showMessage({
+              message: `${userData.email} has already been registered`,
+              type: 'warning',
+            });
+          } else {
+            await signUp(userData.email, userData.confirm_password);
+            navigation.navigate('Login');
+          }
+        }
+      } else {
+        ref.current.showMessage({
+          message: 'All inputs must be filled',
+          type: 'warning',
+        });
+      }
+    } catch (e) {
+      console.log(`error`, e);
+    }
+    setloading(false);
   };
 
   return (
@@ -34,6 +125,7 @@ const RegisterScreen = ({navigation}) => {
       <StatusBar
         barStyle={paperTheme.dark ? 'light-content' : 'dark-content'}
       />
+      <FlashMessage ref={ref} />
       <FastImage
         style={{width: wp(100), height: hp(30)}}
         source={images.registerHeader}
@@ -44,27 +136,61 @@ const RegisterScreen = ({navigation}) => {
           Let's start making {`\n`}good meals
         </Text>
         <View style={{marginTop: hp(2)}}>
-          <TextInput
-            textContentType={'emailAddress'}
-            textAlign={'right'}
-            selectionColor={brColor}
-            placeholder="Your Email"
-            keyboardType={'email-address'}
-            placeholderTextColor={colors.text}
-            keyboardAppearance={paperTheme.dark ? 'dark' : 'light'}
-            style={{backgroundColor: colors.background, color: colors.text}}
-          />
-          <TextInput
-            textContentType={'password'}
-            selectionColor={brColor}
-            secureTextEntry={true}
-            placeholder="Password"
-            keyboardAppearance={paperTheme.dark ? 'dark' : 'light'}
-            placeholderTextColor={colors.text}
-            style={{backgroundColor: colors.background, color: colors.text}}
-          />
+          <View style={{flexDirection: 'row'}}>
+            <TextInput
+              onChangeText={val => handleEmailChange(val)}
+              textContentType={'emailAddress'}
+              textAlign={'right'}
+              selectionColor={brColor}
+              placeholder="Your Email"
+              keyboardType={'email-address'}
+              placeholderTextColor={colors.text}
+              keyboardAppearance={paperTheme.dark ? 'dark' : 'light'}
+              style={{backgroundColor: colors.background, width: wp(70)}}
+            />
+            {userData.isValidEmail && (
+              <View style={{justifyContent: 'center'}}>
+                <Feather name="check-circle" color="green" size={20} />
+              </View>
+            )}
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <TextInput
+              onChangeText={val => handlePasswordChange(val)}
+              selectionColor={brColor}
+              secureTextEntry={true}
+              placeholder="Password"
+              keyboardAppearance={paperTheme.dark ? 'dark' : 'light'}
+              placeholderTextColor={colors.text}
+              style={{backgroundColor: colors.background, width: wp(70)}}
+            />
+            {userData.isValidPassword && (
+              <View style={{justifyContent: 'center'}}>
+                <Feather name="check-circle" color="green" size={20} />
+              </View>
+            )}
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <TextInput
+              onChangeText={val => handleConfirmPasswordChange(val)}
+              selectionColor={brColor}
+              secureTextEntry={true}
+              placeholder="Password confirm"
+              keyboardAppearance={paperTheme.dark ? 'dark' : 'light'}
+              placeholderTextColor={colors.text}
+              style={{backgroundColor: colors.background, width: wp(70)}}
+            />
+            {userData.password &&
+            userData.confirm_password &&
+            userData.password === userData.confirm_password ? (
+              <View style={{justifyContent: 'center'}}>
+                <Feather name="check-circle" color="green" size={20} />
+              </View>
+            ) : null}
+          </View>
           <Button
-            onPress={() => RegisterBtn()}
+            disabled={loading}
+            onPress={() => signUpBtn()}
             textColor={{color: 'white'}}
             text={'Create Account'}
             style={{marginTop: hp(2)}}

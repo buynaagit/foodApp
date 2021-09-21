@@ -87,7 +87,7 @@ const ChooseFoodScreen = ({navigation}) => {
       <FlatList
         scrollEnabled={false}
         style={{marginTop: hp(15)}}
-        keyExtractor={({index}) => index}
+        keyExtractor={(item, index) => `${index}`}
         data={food}
         renderItem={({item, index}) => (
           <ScrollView showsHorizontalScrollIndicator={false} horizontal>

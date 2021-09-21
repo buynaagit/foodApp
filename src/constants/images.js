@@ -15,6 +15,7 @@ export const taco = require('../assets/images/taco.jpg');
 export const pizza = require('../assets/images/pizza.jpg');
 export const chickenSalad = require('../assets/images/chickenSalad.jpg');
 export const burger = require('../assets/images/burger.jpg');
+export const thai = require('../assets/images/thai.jpg');
 
 export default {
   rootImg,
@@ -34,4 +35,5 @@ export default {
   pizza,
   chickenSalad,
   burger,
+  thai,
 };

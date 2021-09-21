@@ -9,7 +9,7 @@ import {
 import {brColor} from '../constants/consts';
 import {hp, wp} from '../constants/theme';
 
-const Button = ({text, onPress, style, textColor, disabled = false}) => {
+const Button = ({text, onPress, style, textColor, disabled}) => {
   return (
     <TouchableOpacity style={[styles.pressBtn, style]} onPress={onPress}>
       {disabled ? (

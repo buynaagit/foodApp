@@ -34,10 +34,12 @@ const FeaturedScreen = ({navigation}) => {
       <View>
         <StatusBar barStyle={'light-content'} />
         <FlatList
-          numColumns={2}
+          keyExtractor={(item, index) => `${index}`}
+          showsVerticalScrollIndicator={false}
           data={card}
           renderItem={({item, index}) => (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('PopularDetails')}>
               <ImageBackground
                 imageStyle={{borderRadius: wp(3)}}
                 source={item.img}
@@ -62,8 +64,8 @@ const styles = StyleSheet.create({
     marginTop: hp(2),
   },
   blackOverlay: {
-    width: wp(45),
-    height: hp(15),
+    width: wp(90),
+    height: hp(40),
     backgroundColor: 'black',
     opacity: 0.2,
     borderRadius: wp(3),
@@ -71,23 +73,26 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 30,
     zIndex: 1,
     position: 'absolute',
-    top: hp(4),
+    bottom: hp(4),
     left: wp(4),
   },
   title: {
     color: 'white',
-    zIndex: 1,
     position: 'absolute',
-    top: hp(1),
+    textAlign: 'center',
+    zIndex: 1,
+    bottom: hp(1),
     left: wp(4),
+    fontSize: 18,
   },
   imgStyle: {
-    width: wp(45),
-    height: hp(15),
+    width: wp(90),
+    height: hp(40),
     marginRight: wp(3),
+    marginVertical: hp(1),
   },
 });
 

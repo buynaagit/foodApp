@@ -24,19 +24,8 @@ export const hp = heightPercent => {
   return PixelRatio.roundToNearestPixel((screenHeight * elemHeight) / 100);
 };
 
-export const FONTS = {
-  titleText: {
-    fontSize: ft(15),
-    fontWeight: '600',
-  },
-  subtitle: {
-    fontSize: ft(11),
-    color: '#919191',
-  },
-};
-
 export const COLORS = {
-  brand: '#5ABAFF',
+  brand: '#b7a485',
   white: '#FFFFFF',
   green: '#AFD224',
   text: '#333333',
@@ -46,6 +35,28 @@ export const COLORS = {
   warningText: '#C3902E',
   warningContainer: '#F4B43A',
   genderText: '#919191',
+};
+
+export const FONTS = {
+  titleText: {
+    fontSize: ft(15),
+    fontWeight: '600',
+  },
+  subtitle: {
+    fontSize: ft(11),
+    color: '#919191',
+  },
+  HeaderText: {
+    fontSize: ft(15),
+    fontWeight: '600',
+  },
+  HeaderText2: {
+    fontSize: ft(20),
+    fontWeight: 'bold',
+  },
+  descText: {
+    fontSize: ft(10),
+  },
 };
 
 export const SIZES = {};
