@@ -97,24 +97,7 @@ const ChooseFoodScreen = ({navigation}) => {
                 onPress={() => {
                   handleTouch(e.index);
                 }}
-                style={
-                  e.selected
-                    ? [
-                        styles.card,
-                        {
-                          backgroundColor: 'white',
-                          shadowColor: 'rgb(0, 0, 0)',
-                          shadowOffset: {
-                            width: 0,
-                            height: 3,
-                          },
-                          shadowOpacity: 0.29,
-                          shadowRadius: 4.65,
-                          elevation: 2,
-                        },
-                      ]
-                    : styles.card
-                }>
+                style={e.selected ? [styles.card, styles.shadow] : styles.card}>
                 <Text style={e.selected ? {color: brColor} : {color: 'white'}}>
                   {e.name}
                 </Text>
@@ -147,6 +130,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: hp(1),
+  },
+  shadow: {
+    backgroundColor: 'white',
+    shadowColor: 'rgb(0, 0, 0)',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 2,
   },
 });
 

@@ -1,23 +1,24 @@
 import React from 'react';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FeaturedScreen from '../screens/FeaturedScreen';
+import {useTheme} from '@react-navigation/native';
+import {brColor} from '../constants/consts';
 import SearchScreen from '../screens/SearchScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import CookBookScreen from '../screens/CookBookScreen';
 import TopBarNavigator from '../navigators/TopBarNavigator';
-import {brColor} from '../constants/consts';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const MyBottomTabs = () => {
+  const {colors} = useTheme();
   return (
     <Tab.Navigator
       initialRouteName="Feed"
       activeColor={brColor}
       labeled={false}
-      barStyle={{backgroundColor: 'white'}}>
+      barStyle={{backgroundColor: colors.Tab}}>
       <Tab.Screen
         name="Feed"
         component={TopBarNavigator}

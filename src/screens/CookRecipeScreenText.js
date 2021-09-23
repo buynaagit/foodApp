@@ -9,10 +9,8 @@ import {
   TouchableOpacity,
   StatusBar,
   Image,
-  SafeAreaView,
 } from 'react-native';
 
-import Video from 'react-native-video';
 import {AuthContext} from '../context';
 import {hp, wp} from '../constants/theme';
 import {brColor} from '../constants/consts';
@@ -21,41 +19,41 @@ import {useTheme} from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 import IconArrow from 'react-native-vector-icons/AntDesign';
-import IconShare from 'react-native-vector-icons/FontAwesome5';
-import Button from '../components/button';
+import {Directions, Ingredients} from '../staticData/myData';
 
 const stars = [1, 2, 3, 4, 5];
 
 // create a component
 const CookRecipeScreenText = ({route, navigation}) => {
-  const paperTheme = useTheme();
   const {colors} = useTheme();
-
+  const [selectedIng, setSelectedIng] = useState(true);
+  const [selectedDir, setSelectedDir] = useState(false);
   const [show, setShow] = useState(false);
-  const [pause, setPause] = useState(true);
-  const {toggleTheme} = useContext(AuthContext);
   const {params} = route.params;
-
-  const ref = React.useRef();
 
   const toggleShow = () => {
     setShow(!show);
   };
 
-  // const renderStar = () => {
-  //   if () {
-  //     retun (
-  //       <View></View>
-  //     )
-  //   }
-  // // }
+  const selectDir = () => {
+    setSelectedDir(true);
+    setSelectedIng(false);
+  };
+
+  const selectIng = () => {
+    setSelectedDir(false);
+    setSelectedIng(true);
+  };
 
   console.log(`params`, params);
   return (
     <ScrollView style={styles.container}>
-      <View>
-        <StatusBar barStyle={'light-content'} />
-      </View>
+      <StatusBar barStyle={'dark-content'} />
+      <TouchableOpacity
+        style={styles.arrowButton}
+        onPress={() => navigation.pop()}>
+        <Icon name="left" size={20} color={'black'} />
+      </TouchableOpacity>
       <View>
         <Image
           source={{uri: params.img}}
@@ -148,20 +146,87 @@ const CookRecipeScreenText = ({route, navigation}) => {
             )}
           </View>
         </View>
-
-        <View style={styles.btnContainer}>
-          <Button
-            onPress={() => setPause(!pause)}
-            text={pause ? 'Start Cooking' : 'Pause Cooking'}
-            style={{width: wp(38)}}
-            textColor={{color: 'white'}}
-          />
-          <Button
-            text="+ Add to list"
-            textColor={{color: brColor}}
-            style={styles.btnStyle}
-          />
+        <View
+          style={{
+            flexDirection: 'row',
+            marginTop: hp(2),
+          }}>
+          <View>
+            <TouchableOpacity
+              style={styles.section}
+              onPress={() => selectIng()}>
+              <Text
+                style={[
+                  styles.ingText,
+                  {color: selectedIng ? brColor : colors.text},
+                ]}>
+                INGREDIENTS
+              </Text>
+            </TouchableOpacity>
+            <View
+              style={{
+                backgroundColor: selectedIng ? brColor : 'white',
+                width: wp(50),
+                height: hp(0.1),
+              }}
+            />
+          </View>
+          <View>
+            <TouchableOpacity
+              style={styles.section}
+              onPress={() => selectDir()}>
+              <Text
+                style={[
+                  styles.ingText,
+                  {color: selectedDir ? brColor : colors.text},
+                ]}>
+                DIRECTIONS
+              </Text>
+            </TouchableOpacity>
+            <View
+              style={{
+                backgroundColor: selectedDir ? brColor : 'white',
+                width: wp(50),
+                height: hp(0.1),
+              }}
+            />
+          </View>
         </View>
+        {selectedIng && (
+          <View style={{paddingHorizontal: wp(5), marginBottom: hp(5)}}>
+            {Ingredients.map((e, index) => (
+              <View style={{}}>
+                <Text style={[styles.ingredText, {color: colors.text}]}>
+                  {e}
+                </Text>
+                <View style={styles.underline} />
+              </View>
+            ))}
+          </View>
+        )}
+        {selectedDir && (
+          <View style={{marginVertical: hp(2), paddingHorizontal: wp(5)}}>
+            {Directions.map((e, index) => (
+              <View style={{marginVertical: hp(1)}}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <View style={styles.dirContainer}>
+                    <Text style={{color: 'white'}}> {index + 1} </Text>
+                  </View>
+                  <Text
+                    style={[
+                      styles.ingredText,
+                      {color: colors.brandText, marginLeft: wp(4)},
+                    ]}>
+                    {e.title}
+                  </Text>
+                </View>
+                <Text style={[styles.ingredText, {color: colors.text}]}>
+                  {e.description}
+                </Text>
+              </View>
+            ))}
+          </View>
+        )}
       </View>
     </ScrollView>
   );
@@ -213,6 +278,42 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: brColor,
     borderWidth: 1.3,
+  },
+  section: {
+    backgroundColor: '#b7a48515',
+    width: wp(50),
+    height: hp(5),
+    justifyContent: 'center',
+  },
+  ingText: {
+    textAlign: 'center',
+    color: COLORS.brand,
+    fontWeight: '700',
+  },
+  ingredText: {
+    marginVertical: hp(1.5),
+    fontWeight: '700',
+  },
+  underline: {
+    backgroundColor: '#b7a48540',
+    width: wp(100),
+    height: hp(0.1),
+  },
+  dirContainer: {
+    width: wp(8),
+    height: wp(8),
+    backgroundColor: brColor,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  arrowButton: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    padding: wp(5),
+    marginTop: hp(4),
+    zIndex: 1,
   },
 });
 

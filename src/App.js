@@ -1,5 +1,5 @@
 //import liraries
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import {
   NavigationContainer,
   DefaultTheme,
@@ -14,12 +14,7 @@ import RootStackScreen from './screens/RootStackScreen';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const App = ({navigation}) => {
-  const [logcheck, setLogcheck] = useState(null);
-  const [Loading, setLoading] = useState(null);
-
-  const refRegister = useRef();
-
+const App = () => {
   const initialLoginState = {
     isLoading: true,
     userEmail: null,
@@ -37,6 +32,7 @@ const App = ({navigation}) => {
       card: '#ffffff',
       brandText: brColor,
       subText: '#686868',
+      Tab: '#ffffff',
     },
   };
 
@@ -48,6 +44,7 @@ const App = ({navigation}) => {
       text: '#ffffff',
       brandText: '#ffffff',
       subText: '#ffffff',
+      Tab: '#333333',
     },
   };
 
@@ -61,6 +58,7 @@ const App = ({navigation}) => {
           userEmail: action.email,
           userPassword: action.password,
           isLoggedin: action.isLoggedin,
+          // isLoggedin: true,
           isLoading: false,
         };
       case 'LOGIN':
@@ -69,6 +67,7 @@ const App = ({navigation}) => {
           userEmail: action.email,
           userPassword: action.password,
           isLoggedin: action.isLoggedin,
+          // isLoggedin: true,
           isLoading: true,
         };
       case 'LOGOUT':
@@ -96,9 +95,6 @@ const App = ({navigation}) => {
 
   const authContext = React.useMemo(
     () => ({
-      toggleTheme: () => {
-        setIsDarkTheme(isDarkTheme => !isDarkTheme);
-      },
       signIn: async (_email, _password) => {
         let result;
         try {
@@ -141,7 +137,6 @@ const App = ({navigation}) => {
         });
       },
       signUp: async (email, password) => {
-        setLoading(true);
         let obj = [{email: email, password: password}];
         try {
           let usersJSON = await AsyncStorage.getItem('@userData');
@@ -169,7 +164,9 @@ const App = ({navigation}) => {
         } catch (e) {
           //
         }
-        setLoading(false);
+      },
+      toggleTheme: () => {
+        setIsDarkTheme(isDarkTheme => !isDarkTheme);
       },
     }),
     [loginState],

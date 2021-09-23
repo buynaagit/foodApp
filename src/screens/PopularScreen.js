@@ -27,7 +27,6 @@ import Icon from 'react-native-vector-icons/Entypo';
 const PopularScreen = ({navigation}) => {
   const paperTheme = useTheme();
   const {colors} = useTheme();
-  const {toggleTheme} = useContext(AuthContext);
 
   return (
     <View style={styles.container}>

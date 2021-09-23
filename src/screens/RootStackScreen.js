@@ -17,12 +17,9 @@ const RootStackScreen = ({navigation}) => (
     screenOptions={{headerShown: false}}
     initialRouteName="Root">
     <RootStack.Screen name="Root" component={RootScreen} />
+    <RootStack.Screen name="AppIntro" component={AppIntroScreen} />
     <RootStack.Screen name="Login" component={LoginScreen} />
     <RootStack.Screen name="Register" component={RegisterScreen} />
-    <RootStack.Screen name="AppIntro" component={AppIntroScreen} />
-    <RootStack.Screen name="Verify" component={VerifyScreen} />
-    <RootStack.Screen name="Category" component={CategoryScreen} />
-    <RootStack.Screen name="Food" component={ChooseFoodScreen} />
   </RootStack.Navigator>
 );
 

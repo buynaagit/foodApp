@@ -28,7 +28,6 @@ import Icon2 from 'react-native-vector-icons/AntDesign';
 const PopularDetailsScreen = ({navigation}) => {
   const paperTheme = useTheme();
   const {colors} = useTheme();
-  const {toggleTheme} = useContext(AuthContext);
 
   const btnHandler = item => {
     navigation.navigate('CookRecipeText', {
@@ -54,7 +53,7 @@ const PopularDetailsScreen = ({navigation}) => {
           </View>
         </View>
         <View style={{position: 'absolute', right: wp(5)}}>
-          <Icon name="ellipsis1" size={22} color={brColor} />
+          <Icon2 name="ellipsis1" size={22} color={brColor} />
         </View>
       </View>
       <View>

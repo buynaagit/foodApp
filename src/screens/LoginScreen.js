@@ -19,7 +19,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const RegisterScreen = ({navigation}) => {
   const paperTheme = useTheme();
   const {colors} = useTheme();
-  const {toggleTheme} = useContext(AuthContext);
   const {signIn} = useContext(AuthContext);
   const [loading, setloading] = useState(false);
 
@@ -161,30 +160,6 @@ const RegisterScreen = ({navigation}) => {
                 <Feather name="check-circle" color="green" size={20} />
               </View>
             )}
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginTop: hp(2),
-            }}>
-            <TouchableRipple onPress={() => toggleTheme()}>
-              <View style={styles.preference}>
-                <View pointerEvents="none">
-                  <Switch value={console.log(`1`)} />
-                </View>
-                <Text
-                  style={{
-                    color: colors.text,
-                    marginLeft: wp(2),
-                    fontWeight: '500',
-                  }}>
-                  Remember
-                </Text>
-              </View>
-            </TouchableRipple>
-            <Text style={{fontWeight: '500', color: colors.text}}>Forgot?</Text>
           </View>
           <Button
             onPress={() => LoginBtn()}

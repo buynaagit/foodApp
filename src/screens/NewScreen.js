@@ -27,7 +27,6 @@ import Icon from 'react-native-vector-icons/Entypo';
 const FeaturedScreen = ({navigation}) => {
   const paperTheme = useTheme();
   const {colors} = useTheme();
-  const {toggleTheme} = useContext(AuthContext);
 
   const btnHandler = item => {
     navigation.navigate('CookRecipe', {
@@ -56,8 +55,12 @@ const FeaturedScreen = ({navigation}) => {
                     style={{width: wp(19), height: wp(19), borderRadius: wp(3)}}
                   />
                   <View style={{marginLeft: wp(3)}}>
-                    <Text style={FONTS.titleText}> {item.title} </Text>
-                    <Text style={FONTS.subtitle}> {item.subtitle} </Text>
+                    <Text style={[FONTS.titleText, {color: colors.text}]}>
+                      {item.title}
+                    </Text>
+                    <Text style={[FONTS.subtitle, {color: colors.text}]}>
+                      {item.subtitle}
+                    </Text>
                     <Image
                       source={item.star}
                       style={{width: 100, height: 20}}
@@ -65,12 +68,10 @@ const FeaturedScreen = ({navigation}) => {
                   </View>
                 </View>
                 <View>
-                  <Text
-                    style={{fontSize: 18, color: 'gray', textAlign: 'center'}}>
+                  <Text style={[styles.rating, {color: colors.subText}]}>
                     {item.rating}
                   </Text>
-                  <Text
-                    style={{fontSize: 15, color: 'gray', textAlign: 'center'}}>
+                  <Text style={[styles.views, {color: colors.subText}]}>
                     views
                   </Text>
                 </View>
@@ -117,6 +118,16 @@ const styles = StyleSheet.create({
     width: wp(68),
     height: hp(18),
     marginRight: wp(3),
+  },
+  rating: {
+    fontSize: 18,
+    color: 'gray',
+    textAlign: 'center',
+  },
+  views: {
+    fontSize: 15,
+    color: 'gray',
+    textAlign: 'center',
   },
 });
 

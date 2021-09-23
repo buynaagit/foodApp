@@ -21,6 +21,7 @@ import {useTheme} from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 import IconArrow from 'react-native-vector-icons/AntDesign';
+import IconBack from 'react-native-vector-icons/AntDesign';
 import IconShare from 'react-native-vector-icons/FontAwesome5';
 import Button from '../components/button';
 
@@ -33,7 +34,6 @@ const CookRecipeScreen = ({route, navigation}) => {
 
   const [show, setShow] = useState(false);
   const [pause, setPause] = useState(true);
-  const {toggleTheme} = useContext(AuthContext);
   const {params} = route.params;
 
   const ref = React.useRef();
@@ -54,8 +54,13 @@ const CookRecipeScreen = ({route, navigation}) => {
   return (
     <ScrollView style={styles.container}>
       <View>
-        <StatusBar barStyle={'light-content'} />
+        <StatusBar barStyle={'dark-content'} />
       </View>
+      <TouchableOpacity
+        style={styles.arrowButton}
+        onPress={() => navigation.pop()}>
+        <IconBack name="left" size={20} color={'black'} />
+      </TouchableOpacity>
       <View>
         <Image
           source={{uri: params.img}}
@@ -240,6 +245,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: brColor,
     borderWidth: 1.3,
+  },
+  arrowButton: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    padding: wp(5),
+    marginTop: hp(4),
+    zIndex: 1,
   },
 });
 

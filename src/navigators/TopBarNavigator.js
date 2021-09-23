@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   View,
   Text,
@@ -6,16 +7,15 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
+
 import {images} from '../constants';
+import {hp, wp} from '../constants/theme';
 import NewScreen from '../screens/NewScreen';
+import {useTheme} from '@react-navigation/native';
 import PopularScreen from '../screens/PopularScreen';
 import FeaturedScreen from '../screens/FeaturedScreen';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {hp, wp} from '../constants/theme';
-
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {brColor} from '../constants/consts';
-import PopularDetailsScreen from '../screens/PopularDetailsScreen';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -24,6 +24,7 @@ const PopularStack = createNativeStackNavigator();
 const NewStack = createNativeStackNavigator();
 
 const MyTabs = () => {
+  const {colors} = useTheme();
   return (
     <View style={{flex: 1}}>
       <ImageBackground
@@ -46,9 +47,9 @@ const MyTabs = () => {
         tabBarPressColor="red"
         initialRouteName="Featured"
         screenOptions={{
-          tabBarActiveTintColor: brColor,
+          tabBarActiveTintColor: colors.brandText,
           tabBarLabelStyle: {fontSize: 12},
-          tabBarStyle: {backgroundColor: 'white'},
+          tabBarStyle: {backgroundColor: colors.Tab},
           swipeEnabled: false,
         }}>
         <Tab.Screen name="Featured" component={FeaturedStackScreen} />
