@@ -65,8 +65,9 @@ const FeaturedScreen = ({navigation}) => {
               <ImageBackground
                 imageStyle={{borderRadius: wp(3)}}
                 source={{uri: item.img}}
-                style={styles.imgStyle}>
-                <View style={styles.cardBottom}>
+                style={[styles.imgStyle, {shadowColor: colors.text}]}>
+                <View
+                  style={[styles.cardBottom, {backgroundColor: colors.Tab}]}>
                   <Text style={[styles.subtitle, {color: colors.text}]}>
                     {item.subtitle}
                   </Text>
@@ -168,7 +169,6 @@ const styles = StyleSheet.create({
     width: wp(80),
     height: hp(60),
     marginRight: wp(4),
-    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -185,7 +185,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(5),
     justifyContent: 'space-evenly',
     zIndex: 1,
-    backgroundColor: 'white',
     height: hp(17),
     width: wp(80),
     position: 'absolute',

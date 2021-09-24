@@ -33,6 +33,7 @@ const App = () => {
       brandText: brColor,
       subText: '#686868',
       Tab: '#ffffff',
+      search: '#33333320',
     },
   };
 
@@ -45,6 +46,7 @@ const App = () => {
       brandText: '#ffffff',
       subText: '#ffffff',
       Tab: '#333333',
+      search: '#ffffff',
     },
   };
 
@@ -58,7 +60,6 @@ const App = () => {
           userEmail: action.email,
           userPassword: action.password,
           isLoggedin: action.isLoggedin,
-          // isLoggedin: true,
           isLoading: false,
         };
       case 'LOGIN':
@@ -67,7 +68,6 @@ const App = () => {
           userEmail: action.email,
           userPassword: action.password,
           isLoggedin: action.isLoggedin,
-          // isLoggedin: true,
           isLoading: true,
         };
       case 'LOGOUT':

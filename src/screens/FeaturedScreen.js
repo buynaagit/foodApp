@@ -4,16 +4,16 @@ import React from 'react';
 import {
   View,
   Text,
-  StyleSheet,
-  TouchableOpacity,
-  ImageBackground,
-  StatusBar,
   Image,
   FlatList,
+  StatusBar,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 
-import {hp, wp} from '../constants/theme';
 import {FONTS} from '../constants';
+import {hp, wp} from '../constants/theme';
 import {useTheme} from '@react-navigation/native';
 import {card, foodList} from '../staticData/myData';
 
@@ -47,7 +47,7 @@ const FeaturedScreen = ({navigation}) => {
               <ImageBackground
                 imageStyle={{borderRadius: wp(3)}}
                 source={{uri: item.img}}
-                style={styles.imgStyle}>
+                style={[styles.imgStyle, {shadowColor: colors.text}]}>
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.subtitle}>{item.subtitle}</Text>
                 <View style={styles.blackOverlay} />
@@ -142,6 +142,15 @@ const styles = StyleSheet.create({
     width: wp(68),
     height: hp(18),
     marginRight: wp(3),
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    marginBottom: hp(1),
+    marginLeft: wp(1),
   },
   rating: {
     fontSize: 18,
